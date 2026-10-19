@@ -1,0 +1,134 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --paper: #edf0f5;
+  --surface: #ffffff;
+  --ink: #16233a;
+  --muted: #5d6b82;
+  --rule: #d3d9e3;
+  --highlight: #ffd23f;
+  --go: #1e7a56;
+  --alert: #b8372f;
+
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
+  --radius: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.5 var(--font-body);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+h1 { font-size: 32px; }
+h2 { font-size: 22px; }
+
+a { color: inherit; }
+button, input, select { font: inherit; color: inherit; }
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.page { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+.muted { color: var(--muted); }
+.error { color: var(--alert); font-size: 14px; }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 16px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { background: #22345a; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-quiet { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn-quiet:hover { background: #e2e7ef; }
+.btn-link {
+  min-height: 0;
+  padding: 2px 6px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-weight: 500;
+  text-decoration: underline;
+}
+.btn-link:hover { background: none; color: var(--ink); }
+
+/* Form fields */
+.field { display: grid; gap: 4px; }
+.field > label { font-size: 13px; font-weight: 500; color: var(--muted); }
+input, select {
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* Submitted / open */
+.status {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.status-open { color: var(--muted); }
+.status-submitted { color: var(--go); border-color: var(--go); }
+
+/* Ruler: a 12-hour scale, filled to --hours */
+.ruler {
+  position: relative;
+  height: 14px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--surface);
+}
+.ruler::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(100%, calc(var(--hours, 0) / 12 * 100%));
+  background: var(--highlight);
+}
+.ruler::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(100% / 12 - 1px),
+    var(--rule) calc(100% / 12 - 1px),
+    var(--rule) calc(100% / 12)
+  );
+}
